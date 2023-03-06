@@ -1,7 +1,7 @@
-CREATE TABLE User(
-	userid INTEGER PRIMARY KEY,
+CREATE TABLE Users(
+	userid SERIAL PRIMARY KEY,
 	name VARCHAR(50),
-	phone BIGSERIAL,
+	phone BIGINT,
 	email VARCHAR(50),
 	street TEXT,
 	city VARCHAR(50),
@@ -10,17 +10,17 @@ CREATE TABLE User(
 );
 
 CREATE TABLE Product(
-	productid INTEGER PRIMARY KEY,
+	productid SERIAL PRIMARY KEY,
 	name VARCHAR(100),
 	description TEXT,
-	ingredients VARCHAR(100) ARRAY,
+	ingredients VARCHAR(100)[],
 	Rating REAL
 );
 
 CREATE TABLE Restaurant(
-	restid INTEGER PRIMARY KEY,
+	restid SERIAL PRIMARY KEY,
 	name varchar(100),
-	phone BIGSERIAL,
+	phone BIGINT,
 	street TEXT,
 	city varchar(50),
 	state varchar(50),
@@ -29,47 +29,47 @@ CREATE TABLE Restaurant(
 );
 
 CREATE TABLE Menu(
-	productid INTEGER REFERENCES Product,
-	restid INTEGER REFERENCES Restaurant,
+	productid SERIAL REFERENCES Product,
+	restid SERIAL REFERENCES Restaurant,
 	price REAL,
-	ADD CONSTRAINT pk PRIMARY KEY(productid, restid)
+	CONSTRAINT mpk PRIMARY KEY(productid, restid)
 );
 
 --CREATE TABLE TopProducts(
---	productid INTEGER REFERENCES Product,
---	restid INTEGER REFERENCES Restaurant,
+--	productid SERIAL REFERENCES Product,
+--	restid SERIAL REFERENCES Restaurant,
 --	price REAL,
---	ADD CONSTRAINT pk PRIMARY KEY(productid, restid)
+--	CONSTRAINT pk PRIMARY KEY(productid, restid)
 --);
 
 CREATE TABLE SavedProducts(
-	userid INTEGER REFERENCES User,
-	productid INTEGER REFERENCES Product,
-	ADD CONSTRAINT pk PRIMARY KEY(userid,productid)
+	userid SERIAL REFERENCES Users,
+	productid SERIAL REFERENCES Product,
+	CONSTRAINT spk PRIMARY KEY(userid,productid)
 );
 
 CREATE TABLE RatedProducts(
-	userid INTEGER REFERENCES User,
-	productid INTEGER REFERENCES Product,
-	rating REAL
-	ADD CONSTRAINT pk PRIMARY KEY(userid,productid)
+	userid SERIAL REFERENCES Users,
+	productid SERIAL REFERENCES Product,
+	rating REAL,
+	CONSTRAINT rpk PRIMARY KEY(userid, productid)
 );
 
 CREATE TABLE SavedRestaurants(
-	userid INTEGER REFERENCES User,
-	restid INTEGER REFERENCES Restaurant,
-	ADD CONSTRAINT pk PRIMARY KEY(userid,restid)
+	userid SERIAL REFERENCES Users,
+	restid SERIAL REFERENCES Restaurant,
+	CONSTRAINT srpk PRIMARY KEY(userid,restid)
 );
 
 CREATE TABLE RatedRestaurants(
-	userid INTEGER REFERENCES User,
-	restid INTEGER REFERENCES Restaurant,
+	userid SERIAL REFERENCES Users,
+	restid SERIAL REFERENCES Restaurant,
 	rating REAL,
-	ADD CONSTRAINT pk PRIMARY KEY(userid,restid)
+	CONSTRAINT rrpk PRIMARY KEY(userid,restid)
 );
 
 CREATE TABLE BlockedRestaurants(
-	userid INTEGER REFERENCES User,
-	restid INTEGER REFERENCES Restaurant,
-	ADD CONSTRAINT pk PRIMARY KEY(userid,restid)
+	userid SERIAL REFERENCES Users,
+	restid SERIAL REFERENCES Restaurant,
+	CONSTRAINT bpk PRIMARY KEY(userid,restid)
 );
