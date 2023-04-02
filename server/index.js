@@ -1,19 +1,21 @@
 const express = require("express");
-const app = express();
+const app = express(); //Run 
 const cors = require("cors");
 const pool = require("./db");
 
+/**************CONECTION DATABASE METHODS*************** */
 //middleware
-app.use(cors());
+app.use(cors()); //Cross origin resource sharing
 app.use(express.json());
 
+//Initialize port to listen
 app.listen(5000, () => {
     console.log("Server has started on port 5000");
 });
 
-//ROUTES
+//*************ROUTES AND DATABASE METHODS***************
 
-//Value Insertion
+/*------------------INSERTION------------------------- */
 app.post("/ServiDrink/NewUser", async (req, res) => {
     try {
         const {name, phone, email, street, city, state, zip} = req.body;
@@ -52,8 +54,31 @@ app.post("/ServiDrink/NewRestaurant", async (req, res) => {
         console.error(er.message);
     }
 });
-//Update User info
 
+/*------------------GETTING VALUES------------------------- */
+//Get all values
+app.get("/ServiDrink/allusers", async(req, res)=>{
+    try {
+        const allusers= await pool.query("SELECT * FROM users");
+        res.json(allusers.rows);
+    } catch (error) {
+        console.error(err.message)
+    }
+});
+
+//Get one
+app.get("/ServiDrink/:id", async(req, res)=>{
+    try {
+        const { id }= req.params; 
+        const oneUser= await pool.query("SELECT * FROM users WHERE userid= $1", [id]);
+        res.json(oneUser.rows[0]);
+    } catch (error) {
+        console.error(err.message)
+    }
+});
+
+/*------------------UPDATING------------------------- */
+//Update User info
 app.put("/ServiDrink/:userid", async (req, res) => {
     try {
         const { userid } = req.params;
@@ -68,3 +93,30 @@ app.put("/ServiDrink/:userid", async (req, res) => {
         console.error(er.message);
     }
 });
+
+/*------------------DELETING------------------------- */
+app.delete("/ServiDrink/:userid", async (req, res) => {
+    try {
+        const { userid } = req.params;
+        const deleteUser= await pool.query("DELETE FROM users WHERE userid= $1", [userid]);
+        res.json("User was deleted")
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
+
+
+
+/*PRUEBA
+
+{
+  "name" : "Maria", 
+  "phone" : "35267844", 
+  "email" : "maria2@h.c",
+  "street": "123433 Bruce", 
+  "city": "Tampa", 
+  "state": "FL", 
+  "zip": "33612"
+  
+} */
