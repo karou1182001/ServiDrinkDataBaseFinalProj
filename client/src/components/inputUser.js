@@ -34,7 +34,7 @@ const [description, setDescription] = useState("");
           });
     
           //This refresh and show the changes
-          window.location = "/";
+          window.location = "/adminUsers";
         } catch (err) {
           console.error(err.message);
         }

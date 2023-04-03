@@ -1,19 +1,16 @@
 import React, { Fragment, useState} from "react";
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-import './App.css';
+import '../App.css';
 
 //Components
-import InputUser from "./components/inputUser";
-import ListUsers from "./components/listUsers";
-import Login from "./components/login";
-import  Register from "./components/register";
+import Login from "./login";
+import  Register from "./register";
 
 //https://www.youtube.com/watch?v=3yaHWZdH0FM
 /*
 <InputUser />
         <ListUsers/> */
 
-const PrimaryLayout = () => (
+/*const PrimaryLayout = () => (
   <div>
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
       <Link className="navbar-brand" to="/">ServiDrink</Link>
@@ -34,9 +31,9 @@ const PrimaryLayout = () => (
       </Routes>
     </div>
   </div>
-);
+);*/
 
-function App() {
+function SignUpLogin() {
   const [currentForm, setCurrentForm] = useState('login');
 
   const toggleForm = (formName) => 
@@ -45,7 +42,7 @@ function App() {
   }
   return (
     <Fragment>
-      <div className="App">
+      <div className="SignUpLogin">
       {
         /*If currentform is login will show login form, if not shows reg */
         currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
@@ -55,7 +52,7 @@ function App() {
   );
 }
 
-export default App;
+export default SignUpLogin;
 
 /*<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">ServiDrink</a>

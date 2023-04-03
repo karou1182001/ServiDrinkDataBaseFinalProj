@@ -24,7 +24,7 @@ const EditUser = ({ user }) => {
         }
       );
 
-      window.location = "/";
+      window.location = "/adminUsers";
     } catch (err) {
       console.error(err.message);
     }
