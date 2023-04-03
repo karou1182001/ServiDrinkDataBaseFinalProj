@@ -34,7 +34,7 @@ const PrimaryLayout = () => (
       </Routes>
     </div>
   </div>
-)
+);
 
 function App() {
   const [currentForm, setCurrentForm] = useState('login');
@@ -43,18 +43,12 @@ function App() {
   {
     setCurrentForm(formName);
   }
-
   return (
     <Fragment>
       <div className="App">
       {
-        <BrowserRouter>
-        <Routes>
-            <Route path='/' element={ <Login />} />
-            <Route path='/inputUsers' element={ <InputUser />} />
-        </Routes>
-      </BrowserRouter>
-
+        /*If currentform is login will show login form, if not shows reg */
+        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
       }
     </div>
     </Fragment>
