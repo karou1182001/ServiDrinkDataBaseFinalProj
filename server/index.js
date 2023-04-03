@@ -18,9 +18,9 @@ app.listen(5000, () => {
 /*------------------INSERTION------------------------- */
 app.post("/ServiDrink/NewUser", async (req, res) => {
     try {
-        const {name, phone, email, street, city, state, zip} = req.body;
-        const newUser = await pool.query("INSERT INTO Users (name, phone, email, street, city, state, zip) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *"
-            , [name, phone ,email, street, city, state, zip]
+        const {name, phone, email, street, city, state, zip, password, type} = req.body;
+        const newUser = await pool.query("INSERT INTO Users (name, phone, email, street, city, state, zip, password, type) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *"
+            , [name, phone ,email, street, city, state, zip, password, type]
     );
 
     res.json(newUser.rows[0]);
@@ -66,16 +66,29 @@ app.get("/ServiDrink/allusers", async(req, res)=>{
     }
 });
 
-//Get one
-app.get("/ServiDrink/:id", async(req, res)=>{
+//Get one user
+app.post("/ServiDrink/getUser", async (req, res) => {
+    try {
+        const { email, password} = req.body;
+        const newUser = await pool.query("SELECT * FROM users WHERE email= $1 and password= $2"
+            , [email, password]
+    );
+    res.json(newUser.rows[0]);
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
+//Get one by name
+/*app.get("/ServiDrink/:id", async(req, res)=>{
     try {
         const { id }= req.params; 
-        const oneUser= await pool.query("SELECT * FROM users WHERE userid= $1", [id]);
+        const oneUser= await pool.query("SELECT * FROM users WHERE email= $1", [id]);
         res.json(oneUser.rows[0]);
     } catch (error) {
         console.error(err.message)
     }
-});
+});*/
 
 /*------------------UPDATING------------------------- */
 //Update User info
@@ -85,8 +98,8 @@ app.put("/ServiDrink/:userid", async (req, res) => {
         const { name} = req.body;
         //const { name, phone, email, street, city, state, zip } = req.body;
         //"a", 322, "sebas@g", "1234", "Baq", "FL", 32578
-        const updateUser = await pool.query("UPDATE Users SET name = $1, phone = $2, email = $3, street = $4, city = $5, state = $6, zip = $7 WHERE userid = $8",
-        [name, 322, "sebas@g", "1234", "Baq", "FL", 32578, userid]
+        const updateUser = await pool.query("UPDATE Users SET name = $1, phone = $2, email = $3, street = $4, city = $5, state = $6, zip = $7, password= $8, type= $9 WHERE userid = $10",
+        [name, 322, "sebas@g", "1234", "Baq", "FL", 32578, "1", "normal", userid]
         //[name, phone, email, street, city, state, zip, userid]
         );
 

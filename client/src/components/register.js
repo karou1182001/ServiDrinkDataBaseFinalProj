@@ -14,13 +14,30 @@ export const Register = (props) => {
     =            FUNCTIONS            =
     =============================================*/
     
-    
-    
-    
-    const handleSubmit = (e) => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        console.log(email);
-    }
+        try {
+          const body = { "name" : name, 
+            "phone" : "35267844", 
+            "email" : email,
+            "street": "123433 Bruce", 
+            "city": "Tampa", 
+            "state": "FL", 
+            "zip": "33612",
+            "password": pass,
+            "type": "normal"}
+            const response = await fetch("http://localhost:5000/ServiDrink/NewUser", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          });
+    
+          //This refresh and show the changes
+          window.location = "/";
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
 
     
     /*=============================================
@@ -36,6 +53,7 @@ export const Register = (props) => {
         <form className="register-form" onSubmit={handleSubmit}>
             <label htmlFor="name">Full name</label>
             <input value={name} name="name" onChange={(e) => setName(e.target.value)} id="name" placeholder="full Name" />
+            
             <label htmlFor="email">email</label>
             <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
             <label htmlFor="password">password</label>

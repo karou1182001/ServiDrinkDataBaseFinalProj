@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+//Video that explains the library of sweet alert: https://www.youtube.com/watch?v=f45RAS85TnA
+import swal from "sweetalert";
 
 export const Login = (props) => {
     /*=============================================
@@ -10,10 +12,33 @@ export const Login = (props) => {
     /*=============================================
     =            FUNCTIONS            =
     =============================================*/
-    const handleSubmit = (e) => {
+    
+    //Get one user and verify
+    const handleSubmit = async e => {
         e.preventDefault();
-        console.log(email);
-    }
+        try {
+          const body = {  
+            "email" : email,
+            "password": pass}
+            const response = await fetch("http://localhost:5000/ServiDrink/getUser", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          });
+    
+          //This refresh and show the changes
+          //window.location = "/";
+          //Alert using the library
+          swal({
+            title: "ServiDrink says",
+            text:  "You have entered to the system",
+            icon: "success",
+            button: "Ok"
+          });
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
 
      /*=============================================
      =            HTML            =

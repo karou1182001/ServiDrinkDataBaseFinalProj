@@ -17,25 +17,27 @@ const [description, setDescription] = useState("");
   =============================================*/
   const onSubmitForm = async e => {
     e.preventDefault();
-    try {
-      const body = { "name" : description, 
-        "phone" : "35267844", 
-        "email" : "maria2@h.c",
-        "street": "123433 Bruce", 
-        "city": "Tampa", 
-        "state": "FL", 
-        "zip": "33612"}
-        const response = await fetch("http://localhost:5000/ServiDrink/NewUser", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
-
-      //This refresh and show the changes
-      window.location = "/";
-    } catch (err) {
-      console.error(err.message);
-    }
+        try {
+          const body = { "name" : description, 
+            "phone" : "35267844", 
+            "email" :  "a@g.c",
+            "street": "123433 Bruce", 
+            "city": "Tampa", 
+            "state": "FL", 
+            "zip": "33612",
+            "password": "1",
+            "type": "normal"}
+            const response = await fetch("http://localhost:5000/ServiDrink/NewUser", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          });
+    
+          //This refresh and show the changes
+          window.location = "/";
+        } catch (err) {
+          console.error(err.message);
+        }
   };
 
   /*=====  End of FUNCTIONS  ======*/
