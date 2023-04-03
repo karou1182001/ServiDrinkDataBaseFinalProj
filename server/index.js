@@ -82,10 +82,12 @@ app.get("/ServiDrink/:id", async(req, res)=>{
 app.put("/ServiDrink/:userid", async (req, res) => {
     try {
         const { userid } = req.params;
-        const { name, phone, email, street, city, state, zip } = req.body;
+        const { name} = req.body;
+        //const { name, phone, email, street, city, state, zip } = req.body;
         //"a", 322, "sebas@g", "1234", "Baq", "FL", 32578
         const updateUser = await pool.query("UPDATE Users SET name = $1, phone = $2, email = $3, street = $4, city = $5, state = $6, zip = $7 WHERE userid = $8",
-            [name, phone, email, street, city, state, zip, userid]
+        [name, 322, "sebas@g", "1234", "Baq", "FL", 32578, userid]
+        //[name, phone, email, street, city, state, zip, userid]
         );
 
         res.json("User info updated");

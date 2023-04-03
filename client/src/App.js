@@ -1,24 +1,32 @@
-import logo from './logo.svg';
+import React, { Fragment, useState} from "react";
 import './App.css';
 
+//Components
+import InputUser from "./components/inputUser";
+import ListUsers from "./components/listUsers";
+import Login from "./components/login";
+import  Register from "./components/register";
+
+/*
+<InputUser />
+        <ListUsers/> */
 function App() {
+  const [currentForm, setCurrentForm] = useState('login');
+
+  const toggleForm = (formName) => 
+  {
+    setCurrentForm(formName);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Fragment>
+      <div className="App">
+      {
+        /*If currentform is login will show login form, if not shows reg */
+        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
+      }
     </div>
+    </Fragment>
   );
 }
 

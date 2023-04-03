@@ -16,8 +16,11 @@ Comando para crear el forontend:
 npx create-react-app client
 
 
-Para correr con nodemon:
+Para correr con nodemon el server:
 nodemon index
+Para correr el frontend
+npm start
 
 
 Repasar como poner el ptoyecto de 0 con la estructura
+¿Qué es Express?
