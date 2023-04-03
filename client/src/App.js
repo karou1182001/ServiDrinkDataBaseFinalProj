@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 
 //Components
-import InputUser from "./components/inputUser";
-import ListUsers from "./components/listUsers";
 import AdminUsers from "./components/adminUsers";
 import SignUpLogin from "./components/signUpLogin";
 
