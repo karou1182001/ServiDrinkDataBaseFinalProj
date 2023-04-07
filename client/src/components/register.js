@@ -8,6 +8,7 @@ export const Register = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
 
     
     /*=============================================
@@ -18,7 +19,7 @@ export const Register = (props) => {
         e.preventDefault();
         try {
           const body = { "name" : name, 
-            "phone" : "35267844", 
+            "phone" : phone, 
             "email" : email,
             "street": "123433 Bruce", 
             "city": "Tampa", 
@@ -58,6 +59,9 @@ export const Register = (props) => {
             <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
             <label htmlFor="password">password</label>
             <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+            <label htmlFor="email">Phone</label>
+            <input value={phone} onChange={(e) => setPhone(e.target.value)}type="phone" placeholder="3526591335" id="phone" name="phone" />
+            <h1></h1>
             <button type="submit">Log In</button>
         </form>
         <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>
