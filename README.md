@@ -36,3 +36,28 @@ touch index.js
 npx create-react-app client
 Create folder components
 Add bootstrap to index.html
+
+
+
+-----
+-Agregar campos que faltan en el register
+Sebas y Maria
+
+-Interfaz de usuario normal
+    *Buscar productos, rating, y ver rat, bloquear= Sebatian y Maria
+   
+
+
+    *Interfaz de productos guardaos = Sebastian
+    *Interfaz de restaurantes guardaods= Maria Zapata
+    *Interfaz restaurantes bloqueados= Raymond
+
+    Optional:
+    *Modificar información
+
+
+-Interfaz de dueño de restaurante
+    *Menú donde pueden agregar= Raymond
+
+    Optional:
+    *Interfaz para ver el raing de sus productos

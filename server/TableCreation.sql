@@ -1,8 +1,8 @@
 CREATE TABLE Users(
 	userid SERIAL PRIMARY KEY,
 	name VARCHAR(50),
-	password VARCHAR(10),
-	type VARCHAR(10),
+	password VARCHAR(50),
+	type VARCHAR(50),
 	phone BIGINT,
 	email VARCHAR(50),
 	street TEXT,
