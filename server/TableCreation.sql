@@ -77,6 +77,12 @@ CREATE TABLE BlockedRestaurants(
 	CONSTRAINT bpk PRIMARY KEY(userid,restid)
 );
 
+CREATE TABLE Owns(
+	userid SERIAL REFERENCES Users,
+	restid SERIAL REFERENCES Restaurant,
+	CONSTRAINT opk PRIMARY KEY(userid,restid)
+);
+
 --INSERT INTO Restaurant (name, phone, street, city, state, zip, description) VALUES ("Starbucks", 8526272620, "1273 Bruce B Downs", "Tampa", "FL", 33412, "Starbucks Corp (Starbucks) is a specialty coffee retailer. It roasts, markets, and retails specialty coffee. The company, through its stores, offers several blends of coffee, handcrafted beverages, merchandise, and food items.");
 --INSERT INTO Restaurant VALUES ("Bay Coffee", 8327727272, "1726 Fletcher Av", "Tampa", "FL", 33526, "We Roast The Richest, Most Flavorful Coffees & Strive To Make The World A Better Place.");
 

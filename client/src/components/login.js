@@ -25,13 +25,24 @@ export const Login = (props) => {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
           });
-    
+
+          if(!response.length) {
+            swal({
+              title: "Login failed",
+              text:  "The entered credentials do not match any on our system",
+              icon: "error",
+              button: "Ok"
+            });
+          }
+          const data = await response.json()
+          localStorage.setItem("currentUser", parseInt(data['userid']))
+          //localStorage.clear()
           //This refresh and show the changes
           //window.location = "/";
           //Alert using the library
           swal({
-            title: "ServiDrink says",
-            text:  "You have entered to the system",
+            title: "Login successful",
+            text:  "You have logged in",
             icon: "success",
             button: "Ok"
           });

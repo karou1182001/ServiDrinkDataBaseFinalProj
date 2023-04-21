@@ -8,7 +8,7 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import AdminUsers from "./components/adminUsers";
 import SignUpLogin from "./components/signUpLogin";
 import Template from "./components/userview/template";
-
+import ManageRestaurant from "./components/manageRestaurant";
 
 function App() {
   
@@ -19,6 +19,7 @@ function App() {
           <Route path='/' element={ <Template/>} />
             <Route path='/signup' element={ <SignUpLogin />} />
             <Route path='/adminUsers' element={ <AdminUsers />} />
+            <Route path = '/manage' element = { <ManageRestaurant /> } />
         </Routes>
       </BrowserRouter>
     </div>
