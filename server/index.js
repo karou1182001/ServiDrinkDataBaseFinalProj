@@ -118,6 +118,16 @@ app.post("/ServiDrink/getMenu",  async (req, res) => {
     }
 });
 
+app.get("/ServiDrink/getProducts", async (req, res) => {
+    try {
+        const allProducts = await pool.query("SELECT * FROM Product")
+        res.json(allProducts.rows)
+    } catch (er) {
+        console.error("ERROR IN getProducts");
+        console.error(er.message);
+    }
+});
+
 //Get one by name
 /*app.get("/ServiDrink/:id", async(req, res)=>{
     try {
