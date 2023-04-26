@@ -42,10 +42,13 @@ const [restaurants, setRestaurants] = useState([]);
       const deleterestaurant = await fetch(`http://localhost:5000/ServiDrink/SavedRestaurant/${restid}`,
       {
         method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify(body)
       });
 
-      //setRestaurants(restaurants.filter(restaurant => restaurant.restid !== restid));
+      setRestaurants(restaurants.filter(restaurant => restaurant.restid !== restid));
 
       //window.location = "/";
     } catch (err) {
@@ -104,7 +107,7 @@ const [restaurants, setRestaurants] = useState([]);
     
 
 
-     <div class="tm-black-bg tm-contact-form-container tm-align-right">
+    {/*<div class="tm-black-bg tm-contact-form-container tm-align-right">
     <form action="" method="POST" id="contact-form">
         <div class="tm-form-group">
         <input type="text" name="name" class="tm-form-control" placeholder="Name" required="" />
@@ -121,7 +124,7 @@ const [restaurants, setRestaurants] = useState([]);
         </button>
         </div>
     </form>
-    </div>
+    </div>*/}
 
 </div>
     
