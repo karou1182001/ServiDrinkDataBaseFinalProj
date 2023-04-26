@@ -45,8 +45,9 @@ Sebas y Maria
 
 -Interfaz de usuario normal
     *Buscar productos, rating, y ver rat, bloquear= Sebatian y Maria
+    
      - Barra para filtrar productos: Sebas
-     -Que se muestren por defecto los productos con su respectiva descripción
+     -Que se muestren por defecto los productos con su respectiva descripción: Maria
      -Que se pueda dar rating: Maria
      -Que se puedan bloquear: Sebastián
 

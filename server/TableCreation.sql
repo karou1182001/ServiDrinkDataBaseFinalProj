@@ -13,16 +13,17 @@ CREATE TABLE Users(
 
 CREATE TABLE Product(
 	productid SERIAL PRIMARY KEY,
-	name VARCHAR(100),
+	internetimage TEXT,
+	Pname VARCHAR(100),
 	description TEXT,
 	ingredients VARCHAR(100)[],
-	Rating REAL
+	rating REAL
 );
 
 
 CREATE TABLE Restaurant(
 	restid SERIAL PRIMARY KEY,
-	name varchar(100),
+	Rname varchar(100),
 	phone BIGINT,
 	street TEXT,
 	city varchar(50),
@@ -77,8 +78,7 @@ CREATE TABLE BlockedRestaurants(
 	CONSTRAINT bpk PRIMARY KEY(userid,restid)
 );
 
---INSERT INTO Restaurant (name, phone, street, city, state, zip, description) VALUES ("Starbucks", 8526272620, "1273 Bruce B Downs", "Tampa", "FL", 33412, "Starbucks Corp (Starbucks) is a specialty coffee retailer. It roasts, markets, and retails specialty coffee. The company, through its stores, offers several blends of coffee, handcrafted beverages, merchandise, and food items.");
---INSERT INTO Restaurant VALUES ("Bay Coffee", 8327727272, "1726 Fletcher Av", "Tampa", "FL", 33526, "We Roast The Richest, Most Flavorful Coffees & Strive To Make The World A Better Place.");
+--INSERT INTO Restaurant (rname, phone, street, city, state, zip, description) VALUES('o', 8526272620, 'e B Downs', 'Tampa', 'FL', 33412, 'Ss');
+--INSERT INTO Restaurant (rname, phone, street, city, state, zip, description) VALUES('BayCofee', 8526272620, 'e B Downs', 'Tampa', 'FL', 33412, 'Ss');
 
-
---INSERT INTO Product VALUES ("Ice vanilla Latte", "A vanilla iced latte is espresso or strong brewed coffee that is chilled over ice and sweetened with a touch of cream and vanilla syrup.", "Coffee, milk and Vanilla", 4);
+--INSERT INTO Product VALUES ('Ice vanilla Latte', 'A vanilla iced latte is espresso or strong brewed coffee that is chilled over ice and sweetened with a touch of cream and vanilla syrup.', 'Coffee, milk and Vanilla', 4);

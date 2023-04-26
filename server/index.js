@@ -66,6 +66,29 @@ app.get("/ServiDrink/allusers", async(req, res)=>{
     }
 });
 
+//Get all products
+app.get("/ServiDrink/allproducts", async(req, res)=>{
+    try {
+        //
+        //SELECT Pname, description, ingredients, rating, Rname, price  FROM Restaurant NATURAL JOIN Menu NATURAL JOIN Product
+        const allproducts= await pool.query("SELECT P.pname, P.productid, P.description, P.ingredients, P.rating, P.internetImage, t.rname, t.price  FROM  Product AS P INNER JOIN (Restaurant NATURAL JOIN  Menu) As t on t.productid= P.productid");
+        res.json(allproducts.rows);
+    } catch (error) {
+        console.error(err.message)
+    }
+});
+
+
+//Get saved restaurants
+app.get("/ServiDrink/savedRestaurants", async(req, res)=>{
+    try {
+        const allusers= await pool.query("SELECT * FROM  Restaurant NATURAL JOIN  Users");
+        res.json(allusers.rows);
+    } catch (error) {
+        console.error(err.message)
+    }
+});
+
 //Get one user
 app.post("/ServiDrink/getUser", async (req, res) => {
     try {
@@ -104,6 +127,23 @@ app.put("/ServiDrink/:userid", async (req, res) => {
         );
 
         res.json("User info updated");
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
+//Update rating
+app.put("/ServiDrink/UpdateProduct/:productid", async (req, res) => {
+    try {
+
+        const { productid } = req.params;
+        const { rate} = req.body;
+    
+        const updateUser = await pool.query("UPDATE Product SET rating = $1 WHERE productid = $2",
+        [rate, productid]
+        );
+
+        res.json("Product info updated");
     } catch (er) {
         console.error(er.message);
     }
