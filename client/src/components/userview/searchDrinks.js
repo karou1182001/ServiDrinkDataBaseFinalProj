@@ -2,12 +2,8 @@ import React, { Fragment, useEffect,useState } from "react";
 import {Rating, __esModule} from 'react-simple-star-rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
-
-
-
-//Image and videos
-import image2 from "../../design/designPage/img/hot-americano.png";
-import image3 from "../../design/designPage/img/smoothie-1.png";
+import SearchIcon from '@mui/icons-material/Search';
+import CloseIcon from '@mui/icons-material/Close';
 
 const SearchDrinks = () => {
 
@@ -16,7 +12,9 @@ const SearchDrinks = () => {
 =============================================*/
 const [description, setDescription] = useState("");
 const [products, setProducts] = useState([]);
-const [rating, setRating] = useState(0) 
+const [rating, setRating] = useState(0);
+const [filteredData, setFilteredData] = useState([]);
+const [wordEntered, setWordEntered] = useState(""); 
   //useState show the default value
 /*=====  End of VARIABLES  ======*/
 
@@ -36,6 +34,7 @@ const [rating, setRating] = useState(0)
       console.log(jsonData);
 
       setProducts(jsonData);
+      setFilteredData(jsonData);
     } catch (err) {
       console.error(err.message);
     }
@@ -83,6 +82,25 @@ const [rating, setRating] = useState(0)
     }
   };
 
+  const handleFilter = (event) => {
+		const searchWord = event.target.value;
+		setWordEntered(searchWord);
+		const newFilter = products.filter((value) => {
+			return value.pname.toLowerCase().includes(searchWord.toLowerCase());
+		});
+
+		if (searchWord == "") {
+			setFilteredData(products);
+		} else {
+			setFilteredData(newFilter);
+		}
+	};
+
+	const clearInput = () => {
+		setFilteredData(products);
+		setWordEntered("");
+	}
+
   //your component needs to do something after render
   useEffect(() => {
     getProducts();
@@ -99,23 +117,19 @@ const [rating, setRating] = useState(0)
   =============================================*/
   return (
     <div id="drink" className="tm-page-content">
-            <nav className="tm-black-bg tm-drinks-nav">
-                <ul>
-                <li>
-                    <a href="#" className="tm-tab-link active" data-id="cold">Iced Coffee</a>
-                </li>
-                <li>
-                    <a href="#" className="tm-tab-link" data-id="hot">Hot Coffee</a>
-                </li>
-                <li>
-                    <a href="#" className="tm-tab-link" data-id="juice">Fruit Juice</a>
-                </li>
-                </ul>
+            <nav className="tm-black-bg tm-drinks-nav searchInputs">
+				        <input type="text" placeholder={'Enter a product name...'} value={wordEntered} onChange={ handleFilter} />
+				        <div className="searchIcon">
+					          {wordEntered.length == 0 ?
+						            (< SearchIcon />)
+						            :
+						            (<CloseIcon id="clearBtn" onClick={clearInput } />)}
+				        </div>
             </nav>
 
             <div id="cold" className="tm-tab-content">
                 {/*With products.map I can list all the restaurants */}
-                {products.map(product => (
+                {filteredData.map(product => (
                 <div className="tm-list">
                 <div className="tm-list-item">
                     <img src={product.internetimage} alt="Image" className="tm-list-item-img"/>
@@ -148,31 +162,7 @@ const [rating, setRating] = useState(0)
                 </div>
                 ))}
             </div>
-
-            <div id="hot" className="tm-tab-content">
-                <div className="tm-list">
-                <div className="tm-list-item">
-                    <img src={image2} alt="Image" className="tm-list-item-img"/>
-                    <div className="tm-black-bg tm-list-item-text">
-                    <h3 className="tm-list-item-name">Hot Americano<span className="tm-list-item-price">$8.50</span></h3>
-                    <p className="tm-list-item-description">Here is a short description for the item along with a squared thumbnail.</p>
-                    </div>
-                </div>
-                </div>
-            </div>
-
-            <div id="juice" className="tm-tab-content">
-                <div className="tm-list">
-                <div className="tm-list-item">
-                    <img src={image3} alt="Image" className="tm-list-item-img"/>
-                    <div className="tm-black-bg tm-list-item-text">
-                    <h3 className="tm-list-item-name">Strawberry Smoothie<span className="tm-list-item-price">$12.50</span></h3>
-                    <p className="tm-list-item-description">Here is a short description for the item along with a squared thumbnail.</p>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
+    </div>
   );
 };
 /*=====  End of HTML  ======*/

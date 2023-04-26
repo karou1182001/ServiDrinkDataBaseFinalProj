@@ -130,9 +130,15 @@ h2 { margin-top: 0; }
     font-size: 1.5rem;
 }
 
+.searchInputs {
+    display: flex;
+    align-items: center;
+}
+
 .tm-black-bg {
     background-color: rgba(0,0,0,0.6);
     color: white;
+    justify-content: center;
 }
 
 .tm-drinks-nav > ul > li { display: inline-block; }
