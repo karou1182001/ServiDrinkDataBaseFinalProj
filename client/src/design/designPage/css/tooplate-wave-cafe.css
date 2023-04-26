@@ -37,6 +37,12 @@ p {
 
 h2 { margin-top: 0; }
 
+.link-btn {
+    background: none;
+    color: white;
+    text-decoration: underline;
+  }
+  
 #tm-video {
     position: fixed;
     right: 0;
