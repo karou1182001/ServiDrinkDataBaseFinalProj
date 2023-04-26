@@ -24,6 +24,7 @@ CREATE TABLE Product(
 CREATE TABLE Restaurant(
 	restid SERIAL PRIMARY KEY,
 	rname varchar(100),
+	restImage TEXT, 
 	phone BIGINT,
 	street TEXT,
 	city varchar(50),
