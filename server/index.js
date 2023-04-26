@@ -84,7 +84,7 @@ app.get("/ServiDrink/allproducts", async(req, res)=>{
     try {
         //
         //SELECT Pname, description, ingredients, rating, Rname, price  FROM Restaurant NATURAL JOIN Menu NATURAL JOIN Product
-        const allproducts= await pool.query("SELECT P.pname, P.productid, P.description, P.ingredients, P.rating, P.internetImage, t.rname, t.price  FROM  Product AS P INNER JOIN (Restaurant NATURAL JOIN  Menu) As t on t.productid= P.productid");
+        const allproducts= await pool.query("SELECT P.pname, P.productid, P.description, P.ingredients, P.rating, P.internetImage, t.rname, t.restid, t.price  FROM  Product AS P INNER JOIN (Restaurant NATURAL JOIN  Menu) As t on t.productid= P.productid");
         res.json(allproducts.rows);
     } catch (error) {
         console.error(err.message)
@@ -95,8 +95,8 @@ app.get("/ServiDrink/allproducts", async(req, res)=>{
 //Get saved restaurants
 app.get("/ServiDrink/savedRestaurants", async(req, res)=>{
     try {
-        const allusers= await pool.query("SELECT * FROM  Restaurant AS R INNER JOIN  (SavedRestaurants NATURAL JOIN Users) AS t on R.restid= t.restid");
-        res.json(allusers.rows);
+        const allrest= await pool.query("SELECT * FROM  Restaurant AS R INNER JOIN  (SavedRestaurants NATURAL JOIN Users) AS t on R.restid= t.restid");
+        res.json(allrest.rows);
     } catch (error) {
         console.error(err.message)
     }
