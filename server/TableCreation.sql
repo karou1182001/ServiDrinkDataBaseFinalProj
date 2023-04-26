@@ -23,7 +23,7 @@ CREATE TABLE Product(
 
 CREATE TABLE Restaurant(
 	restid SERIAL PRIMARY KEY,
-	Rname varchar(100),
+	rname varchar(100),
 	phone BIGINT,
 	street TEXT,
 	city varchar(50),

@@ -41,6 +41,23 @@ const [rating, setRating] = useState(0)
     }
   };
 
+  //Save  restaurant
+  const saveRestaurant= async (restid) => {
+        try {
+          const body = { 
+            "userid" : "1", 
+            "restid" : restid}
+            const response = await fetch("http://localhost:5000/ServiDrink/SaveRestaurant", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          });
+    
+        } catch (err) {
+          console.error(err.message);
+        }
+  };
+
   const handleRating = async (rate, productId) => {
     setRating(rate);
     await updateRating(productId, rate);
@@ -118,7 +135,7 @@ const [rating, setRating] = useState(0)
                     />
                     <p className="tm-list-item-description">{product.description}</p>
                     <p>Restaurant: {product.rname}</p>
-                    <button className="link-btn" onClick={() => alert("Hola")}>Save restaurant</button>
+                    <button className="link-btn" onClick={() => saveRestaurant(product.restid)}>Save restaurant</button>
                     </div>
                 </div>
                 </div>
