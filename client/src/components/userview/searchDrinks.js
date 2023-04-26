@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect,useState } from "react";
 import {Rating, __esModule} from 'react-simple-star-rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -135,7 +135,14 @@ const [rating, setRating] = useState(0)
                     />
                     <p className="tm-list-item-description">{product.description}</p>
                     <p>Restaurant: {product.rname}</p>
-                    <button className="link-btn" onClick={() => saveRestaurant(product.restid)}>Save restaurant</button>
+                    <button className="link-btn" onClick={() => saveRestaurant(product.restid)}
+                    style={{
+                    padding: '5px',
+                    fontSize: '20px',
+                   }}
+                   >
+                   <FontAwesomeIcon icon={faSave}  style={{ color: '#099'}} />
+                      </button>
                     </div>
                 </div>
                 </div>
