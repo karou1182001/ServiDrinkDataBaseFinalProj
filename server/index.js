@@ -115,6 +115,48 @@ app.post("/ServiDrink/getUser", async (req, res) => {
     }
 });
 
+app.get("/ServiDrink/getRestaurants", async (req, res) => {
+    try {
+        const allRestaurants = await pool.query("SELECT * FROM Restaurant")
+        res.json(allRestaurants.rows)
+    } catch (er) {
+        console.error("ERROR IN getRestaurants");
+        console.error(er.message);
+    }
+});
+
+app.post("/ServiDrink/getUserRestaurant", async (req, res) => {
+    try {
+        const {userid} = req.body;
+        const allRestaurants = await pool.query("SELECT * FROM Restaurant, Owns WHERE Owns.userid = $1", [userid])
+        res.json(allRestaurants.rows)
+    } catch (er) {
+        console.error("ERROR IN getUserRestaurant");
+        console.error(er.message);
+    }
+});
+
+app.post("/ServiDrink/getMenu",  async (req, res) => {
+    try {
+        const {restid} = req.body;
+        const allRestaurants = await pool.query("SELECT * FROM Restaurant, Owns WHERE Owns.userid = $1", [restid])
+        res.json(allRestaurants.rows)
+    } catch(err) {
+        console.error("ERROR IN getMenu");
+        console.error(er.message);
+    }
+});
+
+app.get("/ServiDrink/getProducts", async (req, res) => {
+    try {
+        const allProducts = await pool.query("SELECT * FROM Product")
+        res.json(allProducts.rows)
+    } catch (er) {
+        console.error("ERROR IN getProducts");
+        console.error(er.message);
+    }
+});
+
 //Get one by name
 /*app.get("/ServiDrink/:id", async(req, res)=>{
     try {
