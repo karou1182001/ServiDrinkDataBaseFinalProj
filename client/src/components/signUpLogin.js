@@ -1,5 +1,5 @@
 import React, { Fragment, useState} from "react";
-//import '../design/App.css';
+import '../design/designPage/css/SignUpLogin.css';
 
 //Components
 import Login from "./login";
