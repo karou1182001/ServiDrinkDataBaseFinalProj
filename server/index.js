@@ -215,6 +215,18 @@ app.delete("/ServiDrink/:userid", async (req, res) => {
     }
 });
 
+app.delete("/ServiDrink/SavedRestaurant/:restid", async (req, res) => {
+    try {
+        const { restid } = req.params;
+        const { userid} = req.body;
+        console.log(userid);
+        const deleteUser= await pool.query("DELETE FROM SavedRestaurants WHERE restid= $1 and userid= $2", [restid, userid]);
+        res.json("Saved restaurant was deleted")
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
 
 
 
