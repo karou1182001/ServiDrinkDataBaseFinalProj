@@ -55,6 +55,19 @@ app.post("/ServiDrink/NewRestaurant", async (req, res) => {
     }
 });
 
+app.post("/ServiDrink/SaveRestaurant", async (req, res) => {
+    try {
+        const { userid, restid} = req.body;
+        const saveRest = await pool.query("INSERT INTO SavedRestaurants (userid, restid) VALUES($1, $2) RETURNING *"
+            , [userid, restid]
+        );
+
+        res.json(saveRest.rows[0]);
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
 /*------------------GETTING VALUES------------------------- */
 //Get all values
 app.get("/ServiDrink/allusers", async(req, res)=>{
@@ -82,7 +95,7 @@ app.get("/ServiDrink/allproducts", async(req, res)=>{
 //Get saved restaurants
 app.get("/ServiDrink/savedRestaurants", async(req, res)=>{
     try {
-        const allusers= await pool.query("SELECT * FROM  Restaurant NATURAL JOIN  Users");
+        const allusers= await pool.query("SELECT * FROM  Restaurant AS R INNER JOIN  (SavedRestaurants NATURAL JOIN Users) AS t on R.restid= t.restid");
         res.json(allusers.rows);
     } catch (error) {
         console.error(err.message)
