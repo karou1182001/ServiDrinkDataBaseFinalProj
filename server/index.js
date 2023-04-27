@@ -29,6 +29,21 @@ app.post("/ServiDrink/NewUser", async (req, res) => {
     }
 });
 
+//Insert restaurant
+app.post("/ServiDrink/NewRestaurant", async (req, res) => {
+    try {
+        const {rname, restImage, phone, street, city, state, zip, description} = req.body;
+        const newRestaurant = await pool.query("INSERT INTO Restaurant (rname, restImage, phone, street, city, state, zip, description) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *"
+            , [rname, restImage, phone, street, city, state, zip, description]
+    );
+
+    res.json(newRestaurant.rows[0]);
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
+
 app.post("/ServiDrink/NewProduct", async (req, res) => {
     try {
         const { name, description, ingredients, rating } = req.body;
@@ -138,6 +153,19 @@ app.post("/ServiDrink/getUser", async (req, res) => {
             , [email, password]
     );
     res.json(newUser.rows[0]);
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
+//Get one restaurant
+app.post("/ServiDrink/getOneRestaurant", async (req, res) => {
+    try {
+        const { rname, phone} = req.body;
+        const newRestaurant = await pool.query("SELECT * FROM Restaurant WHERE rname= $1 and phone= $2"
+            , [rname, phone]
+    );
+    res.json(newRestaurant.rows[0]);
     } catch (er) {
         console.error(er.message);
     }

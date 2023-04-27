@@ -2,12 +2,12 @@ import React, { useState } from "react";
 //Video that explains the library of sweet alert: https://www.youtube.com/watch?v=f45RAS85TnA
 import swal from "sweetalert";
 
-export const Login = (props) => {
+export const LoginRest = (props) => {
     /*=============================================
     =            VARIABLES            =
     =============================================*/
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const [rname, setrname] = useState('');
+    const [phone, setPhone] = useState('');
 
     /*=============================================
     =            FUNCTIONS            =
@@ -18,9 +18,9 @@ export const Login = (props) => {
         e.preventDefault();
         try {
           const body = {  
-            "email" : email,
-            "password": pass}
-            const response = await fetch("http://localhost:5000/ServiDrink/getUser", {
+            "rname" : rname,
+            "phone": phone}
+            const response = await fetch("http://localhost:5000/ServiDrink/getOneRestaurant", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(body)
@@ -35,7 +35,7 @@ export const Login = (props) => {
             });
           }
           const data = await response.json()
-          localStorage.setItem("currentUser", parseInt(data['userid']))
+          localStorage.setItem("currentRestaurant", parseInt(data['restid']))
           //localStorage.clear()
           //This refresh and show the changes
           //window.location = "/main";
@@ -47,16 +47,11 @@ export const Login = (props) => {
             button: "Ok"
           });
 
-          window.location = "/main";
+          window.location = "/adminUsers";
         } catch (err) {
           console.error(err.message);
         }
       };
-
-      const SignRestaurant = () => 
-      {
-        window.location = "/res";
-      }
 
      /*=============================================
      =            HTML            =
@@ -65,16 +60,15 @@ export const Login = (props) => {
         <div className="auth-form-container">
             <h2>Login</h2>
             <form className="login-form" onSubmit={handleSubmit}>
-                <label htmlFor="email">email</label>
-                <input value={email} onChange={(e) => setEmail(e.target.value)}type="email" placeholder="youremail@gmail.com" id="email" name="email" />
-                <label htmlFor="password">password</label>
-                <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
+                <label htmlFor="rname">Name of Restaurant</label>
+                <input value={rname} onChange={(e) => setrname(e.target.value)}type="rname" placeholder="yourrname@gmail.com" id="rname" name="rname" />
+                <label htmlFor="phone">phone</label>
+                <input value={phone} onChange={(e) => setPhone(e.target.value)} type="phone" placeholder="********" id="phone" name="phone" />
                 <button type="submit">Log In</button>
             </form>
             <button className="link-btn" onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
-            <button className="link-btn" onClick={() => SignRestaurant()}>Are you a restaurant? Click.</button>
         </div>
     )
 }
 
-export default Login;
+export default LoginRest;

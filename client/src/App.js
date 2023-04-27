@@ -9,6 +9,7 @@ import AdminUsers from "./components/adminUsers";
 import SignUpLogin from "./components/signUpLogin";
 import Template from "./components/userview/template";
 import ManageRestaurant from "./components/manageRestaurant";
+import SignUpLoginRest from "./components/signUpRestaurant/SignUpLoginRest";
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
             <Route path='/' element={ <SignUpLogin />} />
+            <Route path='/res' element={ <SignUpLoginRest />} />
             <Route path='/main' element={ <Template/>} />
             <Route path='/adminUsers' element={ <AdminUsers />} />
             <Route path = '/manage' element = { <ManageRestaurant /> } />
