@@ -66,8 +66,8 @@ const [products, setProducts] = useState([]);
   =            HTML            =
   =============================================*/
   return (
-    <div id="special" class="tm-page-special">
-    <div class="tm-black-bg tm-special-text-container">
+    <div id="special" class="tm-page-content">
+    <div class="tm-black-bg tm-contact-text-container">
     <h2 class="tm-text-primary">Saved products</h2>
     <p>Here you can find your favorites products.</p>
     </div>
