@@ -52,7 +52,7 @@ const currentUser = localStorage.getItem("currentUser");
     }
   };
 
-  const handleBlock = () => {
+  /*const handleBlock = () => {
 		const newFilter = products.filter((value) => {
 			return value.pname.toLowerCase().includes(searchWord.toLowerCase());
 		});
@@ -62,7 +62,7 @@ const currentUser = localStorage.getItem("currentUser");
 		} else {
 			setFilteredData(newFilter);
 		}
-	};
+	};*/
 
   const getProducts = async () => {
     try {
