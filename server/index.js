@@ -68,6 +68,19 @@ app.post("/ServiDrink/SaveRestaurant", async (req, res) => {
     }
 });
 
+app.post("/ServiDrink/SaveProduct", async (req, res) => {
+    try {
+        const { userid, productid} = req.body;
+        const saveProd = await pool.query("INSERT INTO SavedProducts (userid, productid) VALUES($1, $2) RETURNING *"
+            , [userid, productid]
+        );
+
+        res.json(saveProd.rows[0]);
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
 /*------------------GETTING VALUES------------------------- */
 //Get all values
 app.get("/ServiDrink/allusers", async(req, res)=>{
@@ -97,6 +110,15 @@ app.get("/ServiDrink/savedRestaurants", async(req, res)=>{
     try {
         const allrest= await pool.query("SELECT * FROM  Restaurant AS R INNER JOIN  (SavedRestaurants NATURAL JOIN Users) AS t on R.restid= t.restid");
         res.json(allrest.rows);
+    } catch (error) {
+        console.error(err.message)
+    }
+});
+
+app.get("/ServiDrink/savedProducts", async(req, res)=>{
+    try {
+        const allprod= await pool.query("SELECT * FROM  Product AS P INNER JOIN  (SavedProducts NATURAL JOIN Users) AS t on P.productid= t.productid");
+        res.json(allprod.rows);
     } catch (error) {
         console.error(err.message)
     }
@@ -143,16 +165,6 @@ app.post("/ServiDrink/getMenu",  async (req, res) => {
         res.json(allRestaurants.rows)
     } catch(err) {
         console.error("ERROR IN getMenu");
-        console.error(er.message);
-    }
-});
-
-app.get("/ServiDrink/getProducts", async (req, res) => {
-    try {
-        const allProducts = await pool.query("SELECT * FROM Product")
-        res.json(allProducts.rows)
-    } catch (er) {
-        console.error("ERROR IN getProducts");
         console.error(er.message);
     }
 });
@@ -222,6 +234,18 @@ app.delete("/ServiDrink/SavedRestaurant/:restid", async (req, res) => {
         console.log(userid);
         const deleteUser= await pool.query("DELETE FROM SavedRestaurants WHERE restid= $1 and userid= $2", [restid, userid]);
         res.json("Saved restaurant was deleted")
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
+app.delete("/ServiDrink/SavedProduct/:productid", async (req, res) => {
+    try {
+        const { productid } = req.params;
+        const { userid} = req.body;
+        console.log(userid);
+        const deleteUser= await pool.query("DELETE FROM SavedProducts WHERE productid= $1 and userid= $2", [productid, userid]);
+        res.json("Saved product was deleted")
     } catch (er) {
         console.error(er.message);
     }

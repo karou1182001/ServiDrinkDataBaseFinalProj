@@ -2,6 +2,7 @@ import React, { Fragment, useEffect,useState } from "react";
 import {Rating, __esModule} from 'react-simple-star-rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -56,6 +57,23 @@ const [wordEntered, setWordEntered] = useState("");
           console.error(err.message);
         }
   };
+
+  //Save  Product
+  const saveProduct= async (productid) => {
+    try {
+      const body = { 
+        "userid" : "1", 
+        "productid" : productid}
+        const response = await fetch("http://localhost:5000/ServiDrink/SaveProduct", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+    } catch (err) {
+      console.error(err.message);
+    }
+};
 
   const handleRating = async (rate, productId) => {
     setRating(rate);
@@ -128,7 +146,7 @@ const [wordEntered, setWordEntered] = useState("");
             </nav>
 
             <div id="cold" className="tm-tab-content">
-                {/*With products.map I can list all the restaurants */}
+                {/*With products.map I can list all the products */}
                 {filteredData.map(product => (
                 <div className="tm-list">
                 <div className="tm-list-item">
@@ -156,6 +174,14 @@ const [wordEntered, setWordEntered] = useState("");
                    }}
                    >
                    <FontAwesomeIcon icon={faSave}  style={{ color: '#099'}} />
+                      </button>
+                    <button className="link-btn" onClick={() => saveProduct(product.productid)}
+                    style={{
+                    padding: '5px',
+                    fontSize: '20px',
+                   }}
+                   >
+                   <FontAwesomeIcon icon={faHeart}  style={{ color: '#099'}} />
                       </button>
                     </div>
                 </div>
