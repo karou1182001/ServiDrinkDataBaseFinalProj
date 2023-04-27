@@ -33,7 +33,13 @@ const currentUser = localStorage.getItem("currentUser");
 
   const getProducts = async () => {
     try {
-      const response = await fetch("http://localhost:5000/ServiDrink/allproducts");
+      const body = { 
+        "userid" : currentUser}
+      const response = await fetch("http://localhost:5000/ServiDrink/allproducts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
       const jsonData = await response.json();
       
       console.log(jsonData);

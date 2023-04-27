@@ -56,7 +56,7 @@ const currentUser = localStorage.getItem("currentUser");
 
       setRestaurants(restaurants.filter(restaurant => restaurant.restid !== restid));
 
-      //window.location = "/main";
+      window.location = "/main";
     } catch (err) {
       console.error(err.message);
     }
