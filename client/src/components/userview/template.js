@@ -6,7 +6,7 @@ import $ from 'jquery';
 //For controlling classNames
 import SearchDrinks from "./searchDrinks";
 import SavedProducts from "./savedProducts";
-import LockRestaurants from "./lockRestaurants";
+import BlockRestaurants from "./blockRestaurants";
 import SavedRestaurants from "./savedRestaurants";
 import SignUpLogin from "../signUpLogin";
 
@@ -149,7 +149,7 @@ export const Template = (props) => {
                     <li className="tm-page-nav-item">
                     <a href="#about" className="tm-page-link">
                         <i className="fas fa-glass-martini tm-page-link-icon"></i>
-                        <span>Lock restaurants</span>
+                        <span>Blocked restaurants</span>
                     </a>
                     </li>
                     <li className="tm-page-nav-item">
@@ -173,7 +173,7 @@ export const Template = (props) => {
         <div class="tm-right">
             <main class="tm-main">
             <SearchDrinks/>
-            <LockRestaurants/>
+            <BlockRestaurants/>
             <SavedProducts/>
             <SavedRestaurants/>
             </main>

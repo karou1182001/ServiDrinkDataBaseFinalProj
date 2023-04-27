@@ -3,6 +3,7 @@ import {Rating, __esModule} from 'react-simple-star-rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faBan } from '@fortawesome/free-solid-svg-icons';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -16,6 +17,7 @@ const [products, setProducts] = useState([]);
 const [rating, setRating] = useState(0);
 const [filteredData, setFilteredData] = useState([]);
 const [wordEntered, setWordEntered] = useState(""); 
+const [restaurants, setRestaurants] = useState([]);
 const currentUser = localStorage.getItem("currentUser");
   //useState show the default value
 /*=====  End of VARIABLES  ======*/
@@ -28,6 +30,40 @@ const currentUser = localStorage.getItem("currentUser");
   =============================================*/
 
   //Get all the products
+
+  const getBlockedRestaurants = async () => {
+    try {
+      const body = { currentUser };
+      const response = await fetch("http://localhost:5000/ServiDrink/getBlockedRestaurants", {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      const jsonData = await response.json();
+      
+      console.log(jsonData);
+  
+      setRestaurants(jsonData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const handleBlock = () => {
+		const newFilter = products.filter((value) => {
+			return value.pname.toLowerCase().includes(searchWord.toLowerCase());
+		});
+
+		if (searchWord == "") {
+			setFilteredData(products);
+		} else {
+			setFilteredData(newFilter);
+		}
+	};
+
   const getProducts = async () => {
     try {
       const response = await fetch("http://localhost:5000/ServiDrink/allproducts");
@@ -60,6 +96,25 @@ const currentUser = localStorage.getItem("currentUser");
           console.error(err.message);
         }
   };
+
+  //Block  restaurant
+  const blockRestaurant= async (restid) => {
+    try {
+      const body = { 
+        "userid" : currentUser, 
+        "restid" : restid}
+        const response = await fetch("http://localhost:5000/ServiDrink/BlockRestaurant", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      window.location = "/main";
+
+    } catch (err) {
+      console.error(err.message);
+    }
+};
 
   //Save  Product
   const saveProduct= async (productid) => {
@@ -187,6 +242,14 @@ const currentUser = localStorage.getItem("currentUser");
                    }}
                    >
                    <FontAwesomeIcon icon={faHeart}  style={{ color: '#099'}} />
+                      </button>
+                      <button className="link-btn" onClick={() => blockRestaurant(product.restid)}
+                    style={{
+                    padding: '5px',
+                    fontSize: '20px',
+                   }}
+                   >
+                   <FontAwesomeIcon icon={faBan}  style={{ color: '#099'}} />
                       </button>
                     </div>
                 </div>
