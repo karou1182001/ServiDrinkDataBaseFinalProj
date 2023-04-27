@@ -31,39 +31,6 @@ const currentUser = localStorage.getItem("currentUser");
 
   //Get all the products
 
-  const getBlockedRestaurants = async () => {
-    try {
-      const body = { currentUser };
-      const response = await fetch("http://localhost:5000/ServiDrink/getBlockedRestaurants", {
-        method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      
-      const jsonData = await response.json();
-      
-      console.log(jsonData);
-  
-      setRestaurants(jsonData);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
-  /*const handleBlock = () => {
-		const newFilter = products.filter((value) => {
-			return value.pname.toLowerCase().includes(searchWord.toLowerCase());
-		});
-
-		if (searchWord == "") {
-			setFilteredData(products);
-		} else {
-			setFilteredData(newFilter);
-		}
-	};*/
-
   const getProducts = async () => {
     try {
       const response = await fetch("http://localhost:5000/ServiDrink/allproducts");
