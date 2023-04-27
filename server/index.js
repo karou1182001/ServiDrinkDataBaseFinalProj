@@ -95,7 +95,9 @@ app.get("/ServiDrink/allproducts", async(req, res)=>{
 //Get saved restaurants
 app.get("/ServiDrink/savedRestaurants", async(req, res)=>{
     try {
-        const allrest= await pool.query("SELECT * FROM  Restaurant AS R INNER JOIN  (SavedRestaurants NATURAL JOIN Users) AS t on R.restid= t.restid");
+        const { userid } = req.body;
+        const allrest= await pool.query("SELECT * FROM  Restaurant AS R INNER JOIN  (SavedRestaurants NATURAL JOIN Users) AS t on R.restid= t.restid and t.userid= $1"
+        , [userid]);
         res.json(allrest.rows);
     } catch (error) {
         console.error(err.message)

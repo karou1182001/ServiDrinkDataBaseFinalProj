@@ -12,6 +12,7 @@ const SavedRestaurants = () => {
 =            VARIABLES            =
 =============================================*/
 const [restaurants, setRestaurants] = useState([]);
+const currentUser = localStorage.getItem("currentUser");
   //useState show the default value
 /*=====  End of VARIABLES  ======*/
 
@@ -23,7 +24,15 @@ const [restaurants, setRestaurants] = useState([]);
   =============================================*/
   const getSavedRestaurants = async () => {
     try {
-      const response = await fetch("http://localhost:5000/ServiDrink/savedRestaurants");
+      const body = { currentUser };
+      const response = await fetch("http://localhost:5000/ServiDrink/savedRestaurants",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
       const jsonData = await response.json();
       
       console.log(jsonData);
@@ -86,7 +95,7 @@ const [restaurants, setRestaurants] = useState([]);
             <div className="tm-black-bg tm-list-item-text">
             <h3 className="tm-list-item-name"> {restaurant.rname}
             <span className="tm-list-item-price">
-            <button onClick={() => handleDelete(restaurant.restid, 1)}
+            <button onClick={() => handleDelete(restaurant.restid, currentUser)}
              style={{
               padding: '5px',
               fontSize: '20px',

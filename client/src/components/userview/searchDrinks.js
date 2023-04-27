@@ -15,6 +15,7 @@ const [products, setProducts] = useState([]);
 const [rating, setRating] = useState(0);
 const [filteredData, setFilteredData] = useState([]);
 const [wordEntered, setWordEntered] = useState(""); 
+const currentUser = localStorage.getItem("currentUser");
   //useState show the default value
 /*=====  End of VARIABLES  ======*/
 
@@ -44,7 +45,7 @@ const [wordEntered, setWordEntered] = useState("");
   const saveRestaurant= async (restid) => {
         try {
           const body = { 
-            "userid" : "1", 
+            "userid" : currentUser, 
             "restid" : restid}
             const response = await fetch("http://localhost:5000/ServiDrink/SaveRestaurant", {
             method: "POST",
