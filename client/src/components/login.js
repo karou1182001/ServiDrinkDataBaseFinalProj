@@ -46,6 +46,8 @@ export const Login = (props) => {
             icon: "success",
             button: "Ok"
           });
+
+          window.location = "/";
         } catch (err) {
           console.error(err.message);
         }

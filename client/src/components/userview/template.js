@@ -8,6 +8,7 @@ import SearchDrinks from "./searchDrinks";
 import SavedProducts from "./savedProducts";
 import LockRestaurants from "./lockRestaurants";
 import SavedRestaurants from "./savedRestaurants";
+import SignUpLogin from "../signUpLogin";
 
 
 //Image and videos
@@ -23,6 +24,9 @@ export const Template = (props) => {
     /*=============================================
     =            FUNCTIONS            =
     =============================================*/
+    const handleReload = () => {
+      window.location = "/signup";
+    };
     
     /*----------  INTERFACE TEMPLADE FUNCTION  ----------*/
     useEffect(() => {
@@ -154,7 +158,15 @@ export const Template = (props) => {
                         <span>Saved restaurants</span>
                     </a>
                     </li>
+
+                    
                 </ul>
+                <li className="tm-page-nav-item" onClick={handleReload}>
+                    <a href="#contact" className="tm-page-link" >
+                        <i className="fas fa-sign-out-alt tm-page-link-icon"></i>
+                        <span>Sign Out</span>
+                    </a>
+                </li>
                 </nav>
             </div>
        </div>
