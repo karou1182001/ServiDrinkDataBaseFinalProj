@@ -138,7 +138,12 @@ app.post("/ServiDrink/getSavedRestaurants", async(req, res)=>{
 
 app.get("/ServiDrink/savedProducts", async(req, res)=>{
     try {
-        const allprod= await pool.query("SELECT * FROM  Product AS P INNER JOIN  (SavedProducts NATURAL JOIN Users) AS t on P.productid= t.productid");
+        console.log("Holay");
+        const { userid } = req.body;
+        
+        console.log(userid);
+        const allprod= await pool.query("SELECT * FROM  Product AS P INNER JOIN  (SavedProducts NATURAL JOIN Users) AS t on P.productid= t.productid and t.userid= $1"
+        , [userid]);
         res.json(allprod.rows);
     } catch (error) {
         console.error(err.message)

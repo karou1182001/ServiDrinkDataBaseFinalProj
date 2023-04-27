@@ -6,8 +6,8 @@ const Pool = require("pg").Pool;
 //Cambiar dependiendo de la clave de tu base de datos
 const pool = new Pool({
 	user: "postgres",
-	//02468
-	password: "112358",
+	//112358
+	password: "02468",
 	host: "localhost",
 	port: 5432,
 	database: "ServiDrink"

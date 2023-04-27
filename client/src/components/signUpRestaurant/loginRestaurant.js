@@ -61,7 +61,7 @@ export const LoginRest = (props) => {
             <h2>Login</h2>
             <form className="login-form" onSubmit={handleSubmit}>
                 <label htmlFor="rname">Name of Restaurant</label>
-                <input value={rname} onChange={(e) => setrname(e.target.value)}type="rname" placeholder="yourrname@gmail.com" id="rname" name="rname" />
+                <input value={rname} onChange={(e) => setrname(e.target.value)}type="rname" placeholder="Restaurant Name" id="rname" name="rname" />
                 <label htmlFor="phone">phone</label>
                 <input value={phone} onChange={(e) => setPhone(e.target.value)} type="phone" placeholder="********" id="phone" name="phone" />
                 <button type="submit">Log In</button>

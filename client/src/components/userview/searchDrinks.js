@@ -73,6 +73,8 @@ const currentUser = localStorage.getItem("currentUser");
         body: JSON.stringify(body)
       });
 
+      window.location = "/main";
+
     } catch (err) {
       console.error(err.message);
     }
