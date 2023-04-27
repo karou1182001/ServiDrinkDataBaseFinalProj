@@ -1,10 +1,6 @@
 import React, { Fragment, useEffect,useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-//Image and videos
-import image1 from "../../design/designPage/img/iced-americano.png";
-import image2 from "../../design/designPage/img/hot-americano.png";
-import image3 from "../../design/designPage/img/smoothie-1.png";
 
 const SavedRestaurants = () => {
 

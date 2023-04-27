@@ -141,13 +141,13 @@ export const Template = (props) => {
                     </a>
                     </li>
                     <li className="tm-page-nav-item">
-                    <a href="#about" className="tm-page-link">
+                    <a href="#special" className="tm-page-link">
                         <i className="fas fa-users tm-page-link-icon"></i>
                         <span>Saved Products</span>
                     </a>
                     </li>
                     <li className="tm-page-nav-item">
-                    <a href="#special" className="tm-page-link">
+                    <a href="#about" className="tm-page-link">
                         <i className="fas fa-glass-martini tm-page-link-icon"></i>
                         <span>Lock restaurants</span>
                     </a>

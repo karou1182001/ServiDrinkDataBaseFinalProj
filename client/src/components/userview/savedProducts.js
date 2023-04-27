@@ -1,15 +1,13 @@
-import React, { Fragment, useState } from "react";
-//Image and videos
-import image1 from "../../design/designPage/img/iced-americano.png";
-import image2 from "../../design/designPage/img/hot-americano.png";
-import image3 from "../../design/designPage/img/smoothie-1.png";
+import React, { Fragment, useEffect,useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const SavedProducts = () => {
 
 /*=============================================
 =            VARIABLES            =
 =============================================*/
-const [description, setDescription] = useState("");
+const [products, setProducts] = useState([]);
   //useState show the default value
 /*=====  End of VARIABLES  ======*/
 
@@ -19,8 +17,46 @@ const [description, setDescription] = useState("");
   /*=============================================
   =            FUNCTIONS            =
   =============================================*/
- 
+  const getSavedProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/ServiDrink/savedProducts");
+      const jsonData = await response.json();
+      
+      console.log(jsonData);
 
+      setProducts(jsonData);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //Delete products
+
+  const handleDelete = async (productid, userid) => {
+    try {
+      const body = { userid };
+      const deleteproduct = await fetch(`http://localhost:5000/ServiDrink/SavedProduct/${productid}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+      });
+
+      setProducts(products.filter(product => product.productid !== productid));
+
+      //window.location = "/";
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+   //your component needs to do something after render
+   useEffect(() => {
+    getSavedProducts();
+  }, []);
+ 
   /*=====  End of FUNCTIONS  ======*/
   
   
@@ -31,51 +67,61 @@ const [description, setDescription] = useState("");
   =============================================*/
   return (
     <div id="special" class="tm-page-content">
-                <div class="tm-special-items">
-                <div class="tm-black-bg tm-special-item">
-                    <img src="../../design/designPage/img/special-01.jpg" alt="Image"/>
-                    <div class="tm-special-item-description">
-                    <h2 class="tm-text-primary tm-special-item-title">Special One</h2>
-                    <p class="tm-special-item-text">Here is a short text description for the first special item. You are not allowed to redistribute this template ZIP file.</p>  
-                    </div>
-                </div>
-                <div class="tm-black-bg tm-special-item">
-                    <img src="../../design/designPage/img/special-02.jpg" alt="Image"/>
-                    <div class="tm-special-item-description">
-                    <h2 class="tm-text-primary tm-special-item-title">Second Item</h2>
-                    <p class="tm-special-item-text">You are allowed to download, modify and use this template for your commercial or non-commercial websites.</p>  
-                    </div>
-                </div>
-                <div class="tm-black-bg tm-special-item">
-                    <img src="../../design/designPage/img/special-03.jpg" alt="Image"/>
-                    <div class="tm-special-item-description">
-                    <h2 class="tm-text-primary tm-special-item-title">Third Special Item</h2>
-                    <p class="tm-special-item-text">Pellentesque in ultrices mi, quis mollis nulla. Quisque sed commodo est, quis tincidunt nunc.</p>  
-                    </div>
-                </div>
-                <div class="tm-black-bg tm-special-item">
-                    <img src="../../design/designPage/img/special-04.jpg" alt="Image"/>
-                    <div class="tm-special-item-description">
-                    <h2 class="tm-text-primary tm-special-item-title">Special Item Fourth</h2>
-                    <p class="tm-special-item-text">Vivamus finibus nulla sed metus sagittis, sed ultrices magna aliquam. Mauris fermentum.</p>  
-                    </div>
-                </div>      
-                <div class="tm-black-bg tm-special-item">
-                    <img src="../../design/designPage/img/special-05.jpg" alt="Image"/>
-                    <div class="tm-special-item-description">
-                    <h2 class="tm-text-primary tm-special-item-title">Sixth Sense</h2>
-                    <p class="tm-special-item-text">Here is a short text description for sixth item. This text is four lines.</p>  
-                    </div>
-                </div>
-                <div class="tm-black-bg tm-special-item">
-                    <img src="../../design/designPage/img/special-06.jpg" alt="Image"/>
-                    <div class="tm-special-item-description">
-                    <h2 class="tm-text-primary tm-special-item-title">Seventh Item</h2>
-                    <p class="tm-special-item-text">Curabitur eget erat sit amet sapien aliquet vulputate quis sed arcu.</p>  
-                    </div>
-                </div>                      
-                </div>            
+    <div class="tm-black-bg tm-contact-text-container">
+    <h2 class="tm-text-primary">Saved products</h2>
+    <p>Here you can find your favorites products.</p>
+    </div>
+
+
+    {/*<div id="product" className="tm-tab-special">*/}
+    
+        <div className="tm-list">
+        {products.map(product => (
+        <div className="tm-list-item">
+            <img src={product.internetimage} alt="Image" className="tm-list-item-img"/>
+            <div className="tm-black-bg tm-list-item-text">
+            <h3 className="tm-list-item-name"> {product.pname}
+            <span className="tm-list-item-price">
+            <button onClick={() => handleDelete(product.productid, 1)}
+             style={{
+              padding: '5px',
+              fontSize: '20px',
+            }}
+            >
+              <FontAwesomeIcon icon={faTrash}  style={{ color: '#099'}} />
+            </button>  
+            </span></h3>
+            <p className="tm-list-item-description">{product.description}</p>
+            <p>Rating: {product.rating}</p>
             </div>
+        </div>
+        ))}
+        </div>
+        
+
+    
+
+
+    {/*<div class="tm-black-bg tm-contact-form-container tm-align-right">
+    <form action="" method="POST" id="contact-form">
+        <div class="tm-form-group">
+        <input type="text" name="name" class="tm-form-control" placeholder="Name" required="" />
+        </div>
+        <div class="tm-form-group">
+        <input type="email" name="email" class="tm-form-control" placeholder="Email" required="" />
+        </div>        
+        <div class="tm-form-group tm-mb-30">
+        <textarea rows="6" name="message" class="tm-form-control" placeholder="Message" required=""></textarea>
+        </div>        
+        <div>
+        <button type="submit" class="tm-btn-primary tm-align-right">
+            Submit
+        </button>
+        </div>
+    </form>
+    </div>*/}
+
+</div>
     
   );
 };
