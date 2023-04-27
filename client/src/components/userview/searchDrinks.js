@@ -186,7 +186,7 @@ const currentUser = localStorage.getItem("currentUser");
                     <img src={product.internetimage} alt="Image" className="tm-list-item-img"/>
                     <div className="tm-black-bg tm-list-item-text">
                     <h3 className="tm-list-item-name">{product.pname}
-                    <span className="tm-list-item-price">{product.price}</span></h3>
+                    <span className="tm-list-item-price">${product.price}</span></h3>
                      <Rating
                         onClick={(rate) => handleRating(rate, product.productid)}
                         ratingValue={rating}
