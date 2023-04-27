@@ -25,7 +25,7 @@ export const Template = (props) => {
     =            FUNCTIONS            =
     =============================================*/
     const handleReload = () => {
-      window.location = "/signup";
+      window.location = "/";
     };
     
     /*----------  INTERFACE TEMPLADE FUNCTION  ----------*/

@@ -38,7 +38,7 @@ export const Register = (props) => {
           });
     
           //This refresh and show the changes
-          window.location = "/signup";
+          window.location = "/";
         } catch (err) {
           console.error(err.message);
         }

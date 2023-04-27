@@ -18,26 +18,27 @@ const currentUser = localStorage.getItem("currentUser");
   /*=============================================
   =            FUNCTIONS            =
   =============================================*/
-  const getSavedRestaurants = async () => {
-    try {
-      const body = { currentUser };
-      const response = await fetch("http://localhost:5000/ServiDrink/savedRestaurants",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(body)
-      });
-      const jsonData = await response.json();
+ 
+      const getSavedRestaurants = async (userid) => {
+        try {
+          const body = { userid };
+          const response = await fetch("http://localhost:5000/ServiDrink/getSavedRestaurants", {
+            method: 'POST',
+            body: JSON.stringify(body),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          });
+          
+          const jsonData = await response.json();
+          
+          console.log(jsonData);
       
-      console.log(jsonData);
-
-      setRestaurants(jsonData);
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
+          setRestaurants(jsonData);
+        } catch (err) {
+          console.error(err.message);
+        }
+      };
 
   //Delete restaurants
 
@@ -55,7 +56,7 @@ const currentUser = localStorage.getItem("currentUser");
 
       setRestaurants(restaurants.filter(restaurant => restaurant.restid !== restid));
 
-      //window.location = "/";
+      //window.location = "/main";
     } catch (err) {
       console.error(err.message);
     }
@@ -63,7 +64,7 @@ const currentUser = localStorage.getItem("currentUser");
 
    //your component needs to do something after render
    useEffect(() => {
-    getSavedRestaurants();
+    getSavedRestaurants(currentUser);
   }, []);
  
   /*=====  End of FUNCTIONS  ======*/

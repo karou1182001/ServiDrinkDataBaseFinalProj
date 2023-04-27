@@ -38,7 +38,7 @@ export const Login = (props) => {
           localStorage.setItem("currentUser", parseInt(data['userid']))
           //localStorage.clear()
           //This refresh and show the changes
-          //window.location = "/";
+          //window.location = "/main";
           //Alert using the library
           swal({
             title: "Login successful",
@@ -47,7 +47,7 @@ export const Login = (props) => {
             button: "Ok"
           });
 
-          window.location = "/";
+          window.location = "/main";
         } catch (err) {
           console.error(err.message);
         }

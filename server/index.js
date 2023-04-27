@@ -58,6 +58,7 @@ app.post("/ServiDrink/NewRestaurant", async (req, res) => {
 app.post("/ServiDrink/SaveRestaurant", async (req, res) => {
     try {
         const { userid, restid} = req.body;
+        console.log(userid);
         const saveRest = await pool.query("INSERT INTO SavedRestaurants (userid, restid) VALUES($1, $2) RETURNING *"
             , [userid, restid]
         );
@@ -106,9 +107,12 @@ app.get("/ServiDrink/allproducts", async(req, res)=>{
 
 
 //Get saved restaurants
-app.get("/ServiDrink/savedRestaurants", async(req, res)=>{
+app.post("/ServiDrink/getSavedRestaurants", async(req, res)=>{
     try {
+        console.log("Holay");
         const { userid } = req.body;
+        
+        console.log(userid);
         const allrest= await pool.query("SELECT * FROM  Restaurant AS R INNER JOIN  (SavedRestaurants NATURAL JOIN Users) AS t on R.restid= t.restid and t.userid= $1"
         , [userid]);
         res.json(allrest.rows);

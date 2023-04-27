@@ -46,7 +46,7 @@ const [products, setProducts] = useState([]);
 
       setProducts(products.filter(product => product.productid !== productid));
 
-      //window.location = "/";
+      //window.location = "/main";
     } catch (err) {
       console.error(err.message);
     }
