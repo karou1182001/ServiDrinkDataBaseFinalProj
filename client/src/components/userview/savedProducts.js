@@ -8,6 +8,7 @@ const SavedProducts = () => {
 =            VARIABLES            =
 =============================================*/
 const [products, setProducts] = useState([]);
+const currentUser = localStorage.getItem("currentUser");
   //useState show the default value
 /*=====  End of VARIABLES  ======*/
 
@@ -17,17 +18,25 @@ const [products, setProducts] = useState([]);
   /*=============================================
   =            FUNCTIONS            =
   =============================================*/
-  const getSavedProducts = async () => {
+  const getSavedProducts = async (userid) => {
     try {
-      const response = await fetch("http://localhost:5000/ServiDrink/savedProducts");
-      const jsonData = await response.json();
-      
-      console.log(jsonData);
-
-      setProducts(jsonData);
-    } catch (err) {
-      console.error(err.message);
-    }
+        const body = { userid };
+        const response = await fetch("http://localhost:5000/ServiDrink/getSavedProducts", {
+          method: 'POST',
+          body: JSON.stringify(body),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        const jsonData = await response.json();
+        
+        console.log(jsonData);
+    
+        setProducts(jsonData);
+      } catch (err) {
+        console.error(err.message);
+      }
   };
 
   //Delete products
@@ -54,7 +63,7 @@ const [products, setProducts] = useState([]);
 
    //your component needs to do something after render
    useEffect(() => {
-    getSavedProducts();
+    getSavedProducts(currentUser);
   }, []);
  
   /*=====  End of FUNCTIONS  ======*/

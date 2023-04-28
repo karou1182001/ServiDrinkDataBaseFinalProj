@@ -84,6 +84,20 @@ app.post("/ServiDrink/SaveRestaurant", async (req, res) => {
     }
 });
 
+app.post("/ServiDrink/BlockRestaurant", async (req, res) => {
+    try {
+        const { userid, restid} = req.body;
+        console.log(userid);
+        const blockRest = await pool.query("INSERT INTO BlockedRestaurants (userid, restid) VALUES($1, $2) RETURNING *"
+            , [userid, restid]
+        );
+
+        res.json(blockRest.rows[0]);
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
 app.post("/ServiDrink/SaveProduct", async (req, res) => {
     try {
         const { userid, productid} = req.body;
@@ -124,11 +138,12 @@ app.get("/ServiDrink/allusers", async(req, res)=>{
 });
 
 //Get all products
-app.get("/ServiDrink/allproducts", async(req, res)=>{
+app.post("/ServiDrink/allproducts", async(req, res)=>{
     try {
+        const {userid} = req.body;
         //
         //SELECT Pname, description, ingredients, rating, Rname, price  FROM Restaurant NATURAL JOIN Menu NATURAL JOIN Product
-        const allproducts= await pool.query("SELECT P.pname, P.productid, P.description, P.ingredients, P.rating, P.internetImage, t.rname, t.restid, t.price  FROM  Product AS P INNER JOIN (Restaurant NATURAL JOIN  Menu) As t on t.productid= P.productid");
+        const allproducts= await pool.query("SELECT P.pname, P.productid, P.description, P.ingredients, P.rating, P.internetImage, t.rname, t.restid, t.price FROM Product AS P INNER JOIN (SELECT R.rname, R.restid, M.price, M.productid FROM Restaurant AS R INNER JOIN Menu AS M ON M.restid = R.restid LEFT JOIN BlockedRestaurants AS B ON R.restid = B.restid AND B.userid = $1 WHERE B.userid IS NULL) AS t ON t.productid = P.productid", [userid]);
         res.json(allproducts.rows);
     } catch (error) {
         console.error(err.message)
@@ -151,13 +166,27 @@ app.post("/ServiDrink/getSavedRestaurants", async(req, res)=>{
     }
 });
 
-app.get("/ServiDrink/savedProducts", async(req, res)=>{
+app.post("/ServiDrink/getBlockedRestaurants", async(req, res)=>{
     try {
         console.log("Holay");
         const { userid } = req.body;
         
         console.log(userid);
-        const allprod= await pool.query("SELECT * FROM  Product AS P INNER JOIN  (SavedProducts NATURAL JOIN Users) AS t on P.productid= t.productid and t.userid= $1"
+        const allrest= await pool.query("SELECT * FROM  Restaurant AS R INNER JOIN  (BlockedRestaurants NATURAL JOIN Users) AS t on R.restid= t.restid and t.userid= $1"
+        , [userid]);
+        res.json(allrest.rows);
+    } catch (error) {
+        console.error(err.message)
+    }
+});
+
+app.post("/ServiDrink/getSavedProducts", async(req, res)=>{
+    try {
+        console.log("Holay");
+        const { userid } = req.body;
+        
+        console.log(userid);
+        const allprod= await pool.query("SELECT * FROM  Product AS P INNER JOIN (SavedProducts NATURAL JOIN Users) AS t on P.productid= t.productid and t.userid= $1"
         , [userid]);
         res.json(allprod.rows);
     } catch (error) {
@@ -344,6 +373,18 @@ app.delete("/ServiDrink/SavedRestaurant/:restid", async (req, res) => {
         console.log(userid);
         const deleteUser= await pool.query("DELETE FROM SavedRestaurants WHERE restid= $1 and userid= $2", [restid, userid]);
         res.json("Saved restaurant was deleted")
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
+app.delete("/ServiDrink/BlockedRestaurant/:restid", async (req, res) => {
+    try {
+        const { restid } = req.params;
+        const { userid} = req.body;
+        console.log(userid);
+        const deleteUser= await pool.query("DELETE FROM BlockedRestaurants WHERE restid= $1 and userid= $2", [restid, userid]);
+        res.json("Blocked restaurant was deleted")
     } catch (er) {
         console.error(er.message);
     }

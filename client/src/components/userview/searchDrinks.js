@@ -3,6 +3,7 @@ import {Rating, __esModule} from 'react-simple-star-rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faBan } from '@fortawesome/free-solid-svg-icons';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -16,6 +17,7 @@ const [products, setProducts] = useState([]);
 const [rating, setRating] = useState(0);
 const [filteredData, setFilteredData] = useState([]);
 const [wordEntered, setWordEntered] = useState(""); 
+const [restaurants, setRestaurants] = useState([]);
 const currentUser = localStorage.getItem("currentUser");
   //useState show the default value
 /*=====  End of VARIABLES  ======*/
@@ -28,9 +30,16 @@ const currentUser = localStorage.getItem("currentUser");
   =============================================*/
 
   //Get all the products
+
   const getProducts = async () => {
     try {
-      const response = await fetch("http://localhost:5000/ServiDrink/allproducts");
+      const body = { 
+        "userid" : currentUser}
+      const response = await fetch("http://localhost:5000/ServiDrink/allproducts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
       const jsonData = await response.json();
       
       console.log(jsonData);
@@ -60,6 +69,25 @@ const currentUser = localStorage.getItem("currentUser");
           console.error(err.message);
         }
   };
+
+  //Block  restaurant
+  const blockRestaurant= async (restid) => {
+    try {
+      const body = { 
+        "userid" : currentUser, 
+        "restid" : restid}
+        const response = await fetch("http://localhost:5000/ServiDrink/BlockRestaurant", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+
+      window.location = "/main";
+
+    } catch (err) {
+      console.error(err.message);
+    }
+};
 
   //Save  Product
   const saveProduct= async (productid) => {
@@ -158,7 +186,7 @@ const currentUser = localStorage.getItem("currentUser");
                     <img src={product.internetimage} alt="Image" className="tm-list-item-img"/>
                     <div className="tm-black-bg tm-list-item-text">
                     <h3 className="tm-list-item-name">{product.pname}
-                    <span className="tm-list-item-price">{product.price}</span></h3>
+                    <span className="tm-list-item-price">${product.price}</span></h3>
                      <Rating
                         onClick={(rate) => handleRating(rate, product.productid)}
                         ratingValue={rating}
@@ -187,6 +215,14 @@ const currentUser = localStorage.getItem("currentUser");
                    }}
                    >
                    <FontAwesomeIcon icon={faHeart}  style={{ color: '#099'}} />
+                      </button>
+                      <button className="link-btn" onClick={() => blockRestaurant(product.restid)}
+                    style={{
+                    padding: '5px',
+                    fontSize: '20px',
+                   }}
+                   >
+                   <FontAwesomeIcon icon={faBan}  style={{ color: '#099'}} />
                       </button>
                     </div>
                 </div>
