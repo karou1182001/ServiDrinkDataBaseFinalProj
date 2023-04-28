@@ -34,7 +34,7 @@ CREATE TABLE Restaurant(
 );
 
 CREATE TABLE Menu(
-	productid SERIAL REFERENCES Product,
+	productid SERIAL REFERENCES Product ON DELETE CASCADE,
 	restid SERIAL REFERENCES Restaurant,
 	price REAL,
 	CONSTRAINT mpk PRIMARY KEY(productid, restid)
@@ -79,11 +79,6 @@ CREATE TABLE BlockedRestaurants(
 	CONSTRAINT bpk PRIMARY KEY(userid,restid)
 );
 
-CREATE TABLE Owns(
-	userid SERIAL REFERENCES Users,
-	restid SERIAL REFERENCES Restaurant,
-	CONSTRAINT opk PRIMARY KEY(userid,restid)
-);
 --INSERT INTO Restaurant (rname, phone, street, city, state, zip, description) VALUES('o', 8526272620, 'e B Downs', 'Tampa', 'FL', 33412, 'Ss');
 --INSERT INTO Restaurant (rname, phone, street, city, state, zip, description) VALUES('BayCofee', 8526272620, 'e B Downs', 'Tampa', 'FL', 33412, 'Ss');
 

@@ -47,7 +47,7 @@ export const LoginRest = (props) => {
             button: "Ok"
           });
 
-          window.location = "/adminUsers";
+          window.location = "/manage";
         } catch (err) {
           console.error(err.message);
         }

@@ -47,7 +47,7 @@ app.post("/ServiDrink/NewRestaurant", async (req, res) => {
 app.post("/ServiDrink/NewProduct", async (req, res) => {
     try {
         const { name, description, ingredients, rating } = req.body;
-        const newProduct = await pool.query("INSERT INTO Product (name, description, ingredients, rating) VALUES($1, $2, $3, $4) RETURNING *"
+        const newProduct = await pool.query("INSERT INTO Product (Pname, description, ingredients, rating) VALUES($1, $2, $3, $4) RETURNING *"
             , [name, description, ingredients, rating]
         );
 
@@ -92,6 +92,21 @@ app.post("/ServiDrink/SaveProduct", async (req, res) => {
         );
 
         res.json(saveProd.rows[0]);
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
+app.post("/ServiDrink/AddToMenu", async (req, res) => {
+    try {
+        
+        const { restid, pid, newPrice } = req.body;
+        console.log(restid, pid, newPrice)
+        const newProduct = await pool.query("INSERT INTO Menu (restid, productid, price) VALUES($1, $2, $3) RETURNING *"
+            , [restid, pid, newPrice]
+        );
+
+        res.json(newProduct.rows[0]);
     } catch (er) {
         console.error(er.message);
     }
@@ -176,6 +191,19 @@ app.post("/ServiDrink/getOneRestaurant", async (req, res) => {
     }
 });
 
+//Get one restaurant
+app.post("/ServiDrink/getIDRestaurant", async (req, res) => {
+    try {
+        const { restid } = req.body;
+        const newRestaurant = await pool.query("SELECT * FROM Restaurant WHERE restid = $1"
+            , [restid]
+    );
+    res.json(newRestaurant.rows);
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
 app.get("/ServiDrink/getRestaurants", async (req, res) => {
     try {
         const allRestaurants = await pool.query("SELECT * FROM Restaurant")
@@ -186,27 +214,49 @@ app.get("/ServiDrink/getRestaurants", async (req, res) => {
     }
 });
 
-app.post("/ServiDrink/getUserRestaurant", async (req, res) => {
-    try {
-        const {userid} = req.body;
-        const allRestaurants = await pool.query("SELECT * FROM Restaurant, Owns WHERE Owns.userid = $1", [userid])
-        res.json(allRestaurants.rows)
-    } catch (er) {
-        console.error("ERROR IN getUserRestaurant");
-        console.error(er.message);
-    }
-});
-
 app.post("/ServiDrink/getMenu",  async (req, res) => {
     try {
         const {restid} = req.body;
-        const allRestaurants = await pool.query("SELECT * FROM Restaurant, Owns WHERE Owns.userid = $1", [restid])
+        const allRestaurants = await pool.query("SELECT * FROM Menu WHERE restid = $1", [restid])
         res.json(allRestaurants.rows)
     } catch(err) {
         console.error("ERROR IN getMenu");
         console.error(er.message);
     }
 });
+
+app.post("/ServiDrink/getMenuItem",  async (req, res) => {
+    try {
+        const {restid, productid} = req.body;
+        const allRestaurants = await pool.query("SELECT * FROM Menu WHERE restid = $1 and productid = $2", [restid, productid])
+        res.json(allRestaurants.rows[0])
+    } catch(err) {
+        console.error("ERROR IN getMenu");
+        console.error(er.message);
+    }
+});
+
+app.post("/ServiDrink/getProduct", async (req, res) => {
+    try {
+        const {productid} = req.body;
+        const allRestaurants = await pool.query("SELECT * FROM Product WHERE productid = $1", [productid])
+        res.json(allRestaurants.rows[0])
+    } catch(err) {
+        console.error("ERROR IN getMenu");
+        console.error(er.message);
+    }
+})
+
+app.post("/ServiDrink/getMenuProducts", async (req, res) => {
+    try {
+        const {restid} = req.body;
+        const allRestaurants = await pool.query("SELECT * FROM Menu, Product WHERE Menu.restid = $1 AND Menu.productid = Product.productid", [restid])
+        res.json(allRestaurants.rows)
+    } catch(err) {
+        console.error("ERROR IN getMenu");
+        console.error(er.message);
+    }
+})
 
 //Get one by name
 /*app.get("/ServiDrink/:id", async(req, res)=>{
@@ -255,6 +305,27 @@ app.put("/ServiDrink/UpdateProduct/:productid", async (req, res) => {
     }
 });
 
+//Update menu entry
+app.put("/ServiDrink/UpdateMenu/:restid", async (req, res) => {
+    try {
+
+        const { restid } = req.params;
+        const { name, description, ingredients, path, price, productid } = req.body;
+    
+        const updateProd = await pool.query("UPDATE Product SET pname = $1, description = $2, ingredients = $3, internetimage = $4 WHERE productid = $5",
+        [name, description, ingredients, path, productid]
+        );
+        console.log(price, productid, restid)
+        const updateMen = await pool.query("UPDATE Menu SET price = $1 WHERE productid = $2 AND restid = $3",
+        [price, productid, restid]
+        );
+
+        res.json("Product info updated");
+    } catch (er) {
+        console.error(er.message);
+    }
+});
+
 /*------------------DELETING------------------------- */
 app.delete("/ServiDrink/:userid", async (req, res) => {
     try {
@@ -290,7 +361,17 @@ app.delete("/ServiDrink/SavedProduct/:productid", async (req, res) => {
     }
 });
 
-
+app.delete("/ServiDrink/Menu/:productid", async (req, res) => {
+    try {
+        const { productid } = req.params;
+        const { userid} = req.body;
+        console.log(userid);
+        const deleteUser= await pool.query("DELETE FROM Product WHERE productid= $1", [productid]);
+        res.json("Product was deleted")
+    } catch (er) {
+        console.error(er.message);
+    }
+});
 
 
 /*PRUEBA
