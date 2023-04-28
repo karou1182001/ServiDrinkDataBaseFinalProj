@@ -1,67 +1,34 @@
 # ServiDrinkDataBaseFinalProj
 
+Functionality:
+Our group chose to implement an app that stores and allows users to search through information related drinks served by local restaurants. Users will be able to search for registered restaurants to see the drinks they serve, as well as search for specific drinks to see if they are served at any registered restaurant.
+In addition to searching for restaurants and products, users will be able to rate products, which will be visible to other users when they view the respective product’s page. Users will also be able to save restaurants and products, which will allow them to quickly access the saved item’s information, as well as receive any updates related to the item. Users will also be able to block restaurants, which will prevent it from appearing in any searches.
+
 In this project we are working with PERN
 Postgres, Express, React, and Node
 
-#Para iniciar:
-1.Instalar NodeJS, Postgress
+#To Initialize:
+1. Install NodeJS, PgAdmin(Postgress)
 
-2. npm i express pg cors
+2. Add NodeJS to the path
 
-3. Install nodeman in order to not restart the app when you do changes
+3. In The external file, in the client and server folders
+npm install 
+
+4. npm i express pg cors
+
+5. Install nodemon in order to not restart the app when you do changes
 npm install -g nodemon
 
-Nodejs es backend y React Js frontend
+6. Create a ServiDrink database in postgress and run the TableCreation.sql and dataasesq.sql
 
-Para correr con nodemon el server:
+7. Modify db.js file to match the permissions to your particular database
+
+Nodejs is Backend and React Js is Frontend
+
+To run the server with nodemon:
+cd server
 nodemon index
-Para correr el frontend
+To run the Frontend:
+cd client
 npm start
-
----------------------------------------------------
-1. Create folders
-mkdir server
-
-2. Enter to server (Express crea rapidamente a server, cors interaction)
-cd server 
-npm init
-npm i express pg cors
-
-3. Create files of server
-touch index.js
-
-4.Configurations of db
-
-5.client
-npx create-react-app client
-Create folder components
-Add bootstrap to index.html
-
-
-
------
--Agregar campos que faltan en el register
-Sebas y Maria
-
--Interfaz de usuario normal
-    *Buscar productos, rating, y ver rat, bloquear= Sebatian y Maria
-    
-     - Barra para filtrar productos: Sebas
-     -Que se muestren por defecto los productos con su respectiva descripción: Maria
-     -Que se pueda dar rating: Maria
-     -Que se puedan bloquear: Sebastián
-
-
-    *Interfaz de productos guardaos = Sebastian
-    *Interfaz de restaurantes guardaods= Maria Zapata
-    *Interfaz restaurantes bloqueados= Raymond
-
-    Optional:
-    *Modificar información
-
-
--Interfaz de dueño de restaurante
-    *Menú donde pueden agregar= Raymond
-
-    Optional:
-    *Interfaz para ver el raing de sus productos
