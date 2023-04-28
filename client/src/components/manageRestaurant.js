@@ -124,6 +124,12 @@ const [menu, setMenu] = useState([]);
         </table>
         <button className="btn btn-success" onClick={() => newProduct(localStorage.getItem("currentRestaurant"))}>Add New Product</button>
       </div>
+
+      <div className="tm-video-wrapper">
+        <video autoPlay muted loop id="tm-video">
+            <source src={video} type="video/mp4" />
+        </video>
+      </div>
     </Fragment>
   );
 };

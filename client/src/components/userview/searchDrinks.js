@@ -93,7 +93,7 @@ const currentUser = localStorage.getItem("currentUser");
   const saveProduct= async (productid) => {
     try {
       const body = { 
-        "userid" : "1", 
+        "userid" : currentUser, 
         "productid" : productid}
         const response = await fetch("http://localhost:5000/ServiDrink/SaveProduct", {
         method: "POST",
