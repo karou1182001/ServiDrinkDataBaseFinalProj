@@ -339,10 +339,10 @@ app.put("/ServiDrink/UpdateMenu/:restid", async (req, res) => {
     try {
 
         const { restid } = req.params;
-        const { name, description, ingredients, path, price, productid } = req.body;
+        const { name, description, ingredient, path, price, productid } = req.body;
     
         const updateProd = await pool.query("UPDATE Product SET pname = $1, description = $2, ingredients = $3, internetimage = $4 WHERE productid = $5",
-        [name, description, ingredients, path, productid]
+        [name, description, ingredient, path, productid]
         );
         console.log(price, productid, restid)
         const updateMen = await pool.query("UPDATE Menu SET price = $1 WHERE productid = $2 AND restid = $3",

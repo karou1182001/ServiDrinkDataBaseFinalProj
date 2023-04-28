@@ -46,8 +46,8 @@ const EditProduct = ({ productid, restid }) => {
   const updateProduct = async e => {
     //e.preventDefault()
     try {
-        setIngredients('{' + ingredients.toString() + '}')
-        const b = { name, description, ingredients, path, price, productid };
+        let ingredient = '{' + ingredients.toString() + '}'
+        const b = { name, description, ingredient, path, price, productid };
         JSON.stringify(b)
         console.log(restid)
         const response = await fetch(
