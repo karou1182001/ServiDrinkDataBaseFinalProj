@@ -33,7 +33,28 @@ To run the Frontend:
 cd client
 npm start
 
+# Screenshots
+1. Creation of an account as User
 
-#Screenshots
+   ![image](https://github.com/karou1182001/ServiDrinkDataBaseFinalProj/assets/54915677/30760882-a0a1-4791-912b-79dee31e44a9)
 
+
+2. Creation of account as restaurant
+
+   ![image](https://github.com/karou1182001/ServiDrinkDataBaseFinalProj/assets/54915677/fa8ccd1a-4398-4de9-8d58-283861d68aea)
+
+
+3. Login
 ![image](https://github.com/karou1182001/ServiDrinkDataBaseFinalProj/assets/54915677/2f24a482-cf3d-4d55-a632-50a8d398d132)
+
+4. Main menu users
+  ![image](https://github.com/karou1182001/ServiDrinkDataBaseFinalProj/assets/54915677/d36dae57-eeb2-48d2-8750-f6f32783c9f4)
+
+5. Filter option
+ ![image](https://github.com/karou1182001/ServiDrinkDataBaseFinalProj/assets/54915677/7ba936b4-e092-47b7-9b47-89407745be03)
+
+6. Menu of saved products
+
+   ![image](https://github.com/karou1182001/ServiDrinkDataBaseFinalProj/assets/54915677/a26ac30a-1937-4662-b0b0-943d84c9ec49)
+
+
