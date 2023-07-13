@@ -32,3 +32,8 @@ nodemon index
 To run the Frontend:
 cd client
 npm start
+
+
+#Screenshots
+
+![image](https://github.com/karou1182001/ServiDrinkDataBaseFinalProj/assets/54915677/2f24a482-cf3d-4d55-a632-50a8d398d132)
